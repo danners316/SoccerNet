@@ -1,14 +1,17 @@
 source 'https://rubygems.org'
 
-group :production do
-gem "pg"
-end
+
+gem 'rails', '3.2.6'
 
 group :development, :test do
 gem "sqlite3"
 end
 
-gem 'rails', '3.2.6'
+group :production do
+gem "pg"
+end
+
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
