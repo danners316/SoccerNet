@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
+group :production do
+gem "pg"
+end
+
+group :development, :test do
+gem "sqlite3"
+end
+
 gem 'rails', '3.2.6'
 
 # Bundle edge Rails instead:
@@ -21,14 +29,6 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
-group :production do
-gem "pg"
-end
-
-group :development, :test do
-gem "sqlite3-ruby", :require => "sqlite3"
-end
 
 # To use ActiveModel has_secure_password
   gem 'bcrypt-ruby', '~> 3.0.0'
