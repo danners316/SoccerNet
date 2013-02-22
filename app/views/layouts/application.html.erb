@@ -1,0 +1,74 @@
+<!-- START:head -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Soccer Net Jerseys</title>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<!-- END:head -->
+<body class="<%= controller.controller_name %>">
+
+<div id="banner">
+    <%= image_tag("logo1.jpg") %>
+    <%= @page_title || "Soccer Net Jerseys" %>
+  </div>
+  <div id="columns">
+    <% if session[:user_id] %>
+        <%= button_to 'Logout', logout_path, method: :delete   %>
+    <% else %>
+     <div id="side1">
+      <h2>Login</h2>
+      <%= form_tag do %>
+          <div>
+            <%= label_tag :name, 'Name:' %>
+            <%= text_field_tag :name, params[:name] %>
+          </div>
+          <div>
+            <%= label_tag :password, 'Password:' %>
+            <%= password_field_tag :password, params[:password] %>
+          </div>
+          <div>
+            <%= submit_tag "Login" %>
+          </div>
+      <% end %>
+    </div>
+    <% end %>
+    <div id="side">
+<!-- START_HIGHLIGHT -->
+      <!-- START:hidden_div -->
+<!-- START_HIGHLIGHT -->
+      <% if @cart %>
+<!-- END_HIGHLIGHT -->
+        <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+          <%= render @cart %>
+        <% end %>
+<!-- START_HIGHLIGHT -->
+      <% end %>
+<!-- END_HIGHLIGHT -->
+    <!-- END:hidden_div -->
+
+<!-- END_HIGHLIGHT -->
+      <ul>
+        <li><%= link_to 'Store', store_index_path %></li>
+        <li><%= link_to 'Register', new_user_path %></li>
+            </ul>
+
+      <% if session[:user_id] %>
+      <ul><li><%= link_to 'My Orders', admin_path %></li></ul>
+      <% end %>
+
+      <% if current_user and current_user.admin %>
+      <li><%= link_to 'Orders',   orders_path   %></li>
+      <li><%= link_to 'Users',    users_path    %></li>
+     <li><%= link_to 'Products', products_path %></li>
+
+      <% end %>
+    </div>
+    <div id="main">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>

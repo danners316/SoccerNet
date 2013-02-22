@@ -1,0 +1,35 @@
+<h1>Welcome <%= current_user.name %></h1>
+It's <%= Time.now %> <br />
+
+<% if current_user and current_user.admin %>
+<h3>Time to get to work!</h3>
+We have <%= pluralize(@total_orders, "order") %>
+<% end %>
+
+<h3>Your Order History</h3>
+<% orders = Order.find_all_by_name(current_user.name)%>
+<% orders.each do |order| %>
+    <tr>
+      <td>Sending Information</td><br /><br />
+      <td>To: <%= order.name %></td><br />
+      <td>Address: <%= order.address %></td><br />
+      <td>E-mail: <%= order.email %></td><br />
+      <td>Pay By: <%= order.pay_type %></td><br />
+      <td>Made: <%= order.created_at %></td><br />
+      <td>Updated: <%= order.updated_at %></td><br /><br />
+      <td><%= link_to 'Show', order %></td>
+      <td><%= link_to 'Edit', edit_order_path(order) %></td>
+      <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td><br /><br />
+    </tr>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
